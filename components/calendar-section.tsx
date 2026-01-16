@@ -53,7 +53,7 @@ export function CalendarSection() {
 
         {/* Message */}
         <p className="text-[#6b6b6b] text-sm mb-4">
-          Не пропустите важное событие этого лета —<br />
+          Не пропустите важное событие этой весны —<br />
           день нашей свадьбы!
         </p>
 
