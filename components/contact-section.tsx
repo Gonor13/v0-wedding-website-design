@@ -12,14 +12,14 @@ export function ContactSection() {
 
         <div className="flex items-center justify-center gap-8 md:gap-16">
           <div className="text-left">
-            <h3 className="text-xl font-light text-[#3d3d3d] mb-2">Виктория</h3>
+            <h3 className="text-xl font-light text-[#3d3d3d] mb-2">Никита</h3>
             <a href="tel:+79268887788" className="text-[#6b6b6b] hover:text-[#5a7247] transition-colors">
-              +7 (926) 888-77-88
+              +7 (977) 864-50-13
             </a>
           </div>
 
           <a
-            href="tel:+79268887788"
+            href="tel:+79778645013"
             className="w-24 h-24 rounded-full border border-[#d4d4d4] flex items-center justify-center text-xs tracking-[0.1em] uppercase text-[#6b6b6b] hover:border-[#5a7247] hover:text-[#5a7247] transition-colors"
           >
             Связаться
