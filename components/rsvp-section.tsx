@@ -2,10 +2,12 @@
 
 import type React from "react"
 import { useState } from "react"
-import { Check } from "lucide-react"
+import { Check, Loader2 } from "lucide-react"
 
 export function RsvpSection() {
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
   const [formData, setFormData] = useState({
     name: "",
     attendance: "",
@@ -31,10 +33,30 @@ export function RsvpSection() {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log(formData)
-    setIsSubmitted(true)
+    setIsLoading(true)
+    setError("")
+
+    try {
+      const response = await fetch("/api/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setIsSubmitted(true)
+      } else {
+        setError("Произошла ошибка. Попробуйте ещё раз.")
+      }
+    } catch {
+      setError("Не удалось отправить. Проверьте подключение к интернету.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   if (isSubmitted) {
@@ -89,6 +111,7 @@ export function RsvpSection() {
                   checked={formData.attendance === "yes"}
                   onChange={(e) => setFormData({ ...formData, attendance: e.target.value })}
                   className="w-4 h-4 accent-[#5a7247]"
+                  required
                 />
                 <span className="text-sm text-[#6b6b6b]">Да, с удовольствием</span>
               </label>
@@ -138,13 +161,17 @@ export function RsvpSection() {
             </div>
           </div>
 
+          {/* Error message */}
+          {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
+
           {/* Submit */}
           <div className="flex justify-center">
             <button
               type="submit"
-              className="w-32 h-32 rounded-full border border-[#d4d4d4] text-xs tracking-[0.1em] uppercase text-[#6b6b6b] hover:border-[#5a7247] hover:text-[#5a7247] transition-colors"
+              disabled={isLoading}
+              className="w-32 h-32 rounded-full border border-[#d4d4d4] text-xs tracking-[0.1em] uppercase text-[#6b6b6b] hover:border-[#5a7247] hover:text-[#5a7247] transition-colors disabled:opacity-50 flex items-center justify-center"
             >
-              Отправить
+              {isLoading ? <Loader2 className="animate-spin" size={24} /> : "Отправить"}
             </button>
           </div>
         </form>
