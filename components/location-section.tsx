@@ -9,11 +9,11 @@ export function LocationSection() {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           {/* Info */}
           <div className="order-2 md:order-1">
-            <h3 className="text-xl md:text-2xl font-light text-[#5a7247] mb-4">Лес Event House</h3>
+            <h3 className="text-xl md:text-2xl font-light text-[#5a7247] mb-4">Hedonist</h3>
             <p className="text-[#6b6b6b] text-sm mb-6">
-              Московская обл., пос. Отрадное (6 км от МКАД по Пятницкому шоссе)
+              Покровский бул., 8, стр. 1, Москва
             </p>
-            <p className="text-[#3d3d3d] italic">* Сбор гостей - 16:00</p>
+            <p className="text-[#3d3d3d] italic">* Сбор гостей - 17:30</p>
           </div>
 
           {/* Image with button */}
