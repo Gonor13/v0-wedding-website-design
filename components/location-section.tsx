@@ -20,7 +20,7 @@ export function LocationSection() {
           <div className="order-1 md:order-2 relative">
             <img
               src="/elegant-rustic-event-house-venue-with-green-lawn-a.jpg"
-              alt="Лес Event House"
+              alt="Hedonist"
               className="w-full h-64 md:h-80 object-cover rounded-lg"
             />
             <a
