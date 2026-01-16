@@ -1,72 +1,98 @@
-import { NextResponse } from "next/server"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Свадебное приглашение</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; padding: 8px; }
+        .checkbox-group { display: flex; flex-wrap: wrap; gap: 10px; }
+        .checkbox-group label { display: flex; align-items: center; }
+    </style>
+</head>
+<body>
+    <h1>🎊 Анкета для гостей</h1>
+    
+    <form id="rsvpForm">
+        <div class="form-group">
+            <label>Ваше имя *</label>
+            <input type="text" name="name" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Вы придёте? *</label>
+            <select name="attendance" required>
+                <option value="">Выберите ответ</option>
+                <option value="yes">✅ Да, с радостью!</option>
+                <option value="no">❌ К сожалению, не смогу</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>С кем придёте? (если одни, оставьте пустым)</label>
+            <input type="text" name="companion" placeholder="Имя и фамилия спутника">
+        </div>
+        
+        <div class="form-group">
+            <label>Какие напитки предпочитаете?</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="drinks" value="champagne"> Шампанское</label>
+                <label><input type="checkbox" name="drinks" value="white-wine"> Белое вино</label>
+                <label><input type="checkbox" name="drinks" value="red-wine"> Красное вино</label>
+                <label><input type="checkbox" name="drinks" value="vodka"> Водка</label>
+                <label><input type="checkbox" name="drinks" value="whiskey"> Виски</label>
+                <label><input type="checkbox" name="drinks" value="no-alcohol"> Без алкоголя</label>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Ваши пожелания или комментарии</label>
+            <textarea name="wishes" rows="3"></textarea>
+        </div>
+        
+        <button type="submit">Отправить ответ</button>
+        <p id="statusMessage"></p>
+    </form>
 
-interface RsvpData {
-  name: string
-  attendance: string
-  companion: string
-  drinks: string[]
-}
-
-const drinkLabels: Record<string, string> = {
-  champagne: "Шампанское",
-  "white-wine": "Белое вино",
-  "red-wine": "Красное вино",
-  whiskey: "Виски",
-  vodka: "Водка",
-  gin: "Джин",
-  rum: "Ром",
-  "no-alcohol": "Не пью алкоголь",
-}
-
-export async function POST(request: Request) {
-  try {
-    const data: RsvpData = await request.json()
-
-    const botToken = process.env.TELEGRAM_BOT_TOKEN
-    const chatId = process.env.TELEGRAM_CHAT_ID
-
-    if (!botToken || !chatId) {
-      console.error("Missing Telegram credentials")
-      return NextResponse.json({ success: false, error: "Server configuration error" }, { status: 500 })
-    }
-
-    // Format drinks list
-    const drinksText = data.drinks.length > 0 ? data.drinks.map((d) => drinkLabels[d] || d).join(", ") : "Не выбрано"
-
-    // Create Telegram message
-    const attendanceText = data.attendance === "yes" ? "✅ Да, придёт" : "❌ Не сможет"
-    const companionText = data.companion ? data.companion : "Без спутника"
-
-    const message = `
-🎊 *Новый ответ на анкету свадьбы!*
-
-👤 *Имя:* ${data.name}
-📍 *Присутствие:* ${attendanceText}
-👥 *Спутник:* ${companionText}
-🍷 *Напитки:* ${drinksText}
-    `.trim()
-
-    // Send to Telegram
-    const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`
-    const response = await fetch(telegramUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: message,
-        parse_mode: "Markdown",
-      }),
-    })
-
-    if (!response.ok) {
-      const errorData = await response.json()
-      console.error("Telegram API error:", errorData)
-      return NextResponse.json({ success: false, error: "Failed to send notification" }, { status: 500 })
-    }
-
-    return NextResponse.json({ success: true })
-  } catch (error) {
-    console.error("RSVP submission error:", error)
-    return NextResponse.json({ success: false, error: "Server error" }, { status: 500 })
-  }
-}
+    <script>
+        document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: this.name.value,
+                attendance: this.attendance.value,
+                companion: this.companion.value,
+                drinks: Array.from(this.querySelectorAll('input[name="drinks"]:checked'))
+                    .map(checkbox => checkbox.value),
+                wishes: this.wishes.value
+            };
+            
+            // ЗАМЕНИТЕ НА СВОЙ URL ОТ GOOGLE APPS SCRIPT
+            const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+            
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    document.getElementById('statusMessage').innerHTML = 
+                        '<span style="color: green;">✅ Спасибо! Ваш ответ отправлен.</span>';
+                    this.reset();
+                } else {
+                    throw new Error('Ошибка сервера');
+                }
+            } catch (error) {
+                document.getElementById('statusMessage').innerHTML = 
+                    '<span style="color: red;">❌ Ошибка отправки. Попробуйте ещё раз.</span>';
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
