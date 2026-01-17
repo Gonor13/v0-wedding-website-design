@@ -8,7 +8,7 @@ const events = [
     color: "#e8a0a0",
   },
   {
-    time: "17:00",
+    time: "16:15",
     title: "ЦЕРЕМОНИЯ РЕГИСТРАЦИИ",
     icon: Heart,
     color: "#d4c4b5",
@@ -18,12 +18,6 @@ const events = [
     title: "БАНКЕТ",
     icon: Utensils,
     color: "#3d3d3d",
-  },
-  {
-    time: "23:00",
-    title: "ЗАВЕРШЕНИЕ ВЕЧЕРА",
-    icon: Sparkles,
-    color: "#e8a0a0",
   },
 ]
 
