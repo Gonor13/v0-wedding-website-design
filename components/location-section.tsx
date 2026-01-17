@@ -1,40 +1,70 @@
 export function LocationSection() {
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-xl md:text-3xl font-light tracking-[0.15em] uppercase text-rainbow text-center mb-16">
-          Локация
+    <section className="py-16 px-4">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-[#3d3d3d] mb-12">
+          ЛОКАЦИЯ
         </h2>
-
+        
         <div className="grid md:grid-cols-2 gap-8 items-center">
-          {/* Info */}
-          <div className="order-2 md:order-1">
-            <h3 className="text-xl md:text-2xl font-light text-[#5a7247] mb-4">Hedonist</h3>
-            <p className="text-[#6b6b6b] text-sm mb-6">
-              Покровский бул., 8, стр. 1, Москва
-            </p>
-            <p className="text-[#3d3d3d] italic">* Сбор гостей - 17:30</p>
+          {/* Информация */}
+          <div>
+            <h3 className="text-2xl font-bold text-[#3d3d3d] mb-4">
+              Hedonist
+            </h3>
+            
+            <div className="space-y-4 text-[#6b6b6b]">
+              <p className="text-lg">
+                Покровский бульвар, 8с1
+              </p>
+              <p className="text-lg">
+                Москва
+              </p>
+              
+              <div className="mt-6">
+                <p className="text-[#a8b5a0] font-medium text-lg">
+                  Сбор гостей: 16:00
+                </p>
+              </div>
+              
+              {/* Как добраться */}
+              <div className="mt-8">
+                <h4 className="text-xl font-bold text-[#3d3d3d] mb-3">
+                  КАК ДОБРАТЬСЯ
+                </h4>
+                <ul className="space-y-2">
+                  <li>📍 Метро: Курская, Чкаловская</li>
+                  <li>🚗 Парковка: городская парковка</li>
+                  <li>🚕 Такси: Hedonist на Покровском бульваре</li>
+                </ul>
+              </div>
+              
+              {/* Кнопка карты */}
+              <div className="mt-8">
+                <a 
+                  href="https://yandex.ru/maps/org/hedonist/178845513143/?ll=37.644730%2C55.757328&z=17.17"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#a8b5a0] hover:bg-[#8fa38a] text-white font-medium rounded-lg transition-all duration-300"
+                >
+                  <span>Открыть в Яндекс Картах</span>
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
           </div>
-
-          {/* Image with button */}
-          <div className="order-1 md:order-2 relative">
-            <img
-              src="/elegant-rustic-event-house-venue-with-green-lawn-a.jpg"
-              alt="Hedonist"
-              className="w-full h-64 md:h-80 object-cover rounded-lg"
-            />
-            <a
-              href="https://yandex.ru/maps"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="absolute top-4 right-4 md:right-[-20px] md:top-1/2 md:-translate-y-1/2 bg-white rounded-full w-24 h-24 flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <span className="text-xs tracking-[0.1em] uppercase text-[#3d3d3d]">
-                Как
-                <br />
-                добраться
-              </span>
-            </a>
+          
+          {/* Карта или фото */}
+          <div className="bg-white p-4 shadow-lg rounded-lg">
+            <div className="aspect-video bg-gray-100 rounded-md overflow-hidden">
+              {/* Можно вставить iframe карты или фото заведения */}
+              <div className="w-full h-full flex items-center justify-center text-[#9a9a9a]">
+                Карта Hedonist
+              </div>
+            </div>
+            <p className="text-sm text-center text-[#9a9a9a] mt-3">
+              Hedonist на Покровском бульваре
+            </p>
           </div>
         </div>
       </div>
