@@ -1,27 +1,23 @@
-import { HeroSection } from "@/components/hero-section"
-import { AboutSection } from "@/components/about-section"
-import { CountdownSection } from "@/components/countdown-section"
-import { CalendarSection } from "@/components/calendar-section"
-import { TimelineSection } from "@/components/timeline-section"
-import { LocationSection } from "@/components/location-section"
-import { RsvpSection } from "@/components/rsvp-section"
-import { WishesSection } from "@/components/wishes-section"
-import { ContactSection } from "@/components/contact-section"
-import { FooterSection } from "@/components/footer-section"
+import HeroSection from '@/components/hero-section'
+import AboutSection from '@/components/about-section'
+import TimelineSection from '@/components/timeline-section'
+import LocationSection from '@/components/location-section'
+import CountdownSection from '@/components/countdown-section'
+import RSVPSection from '@/components/rsvp-section'
+import FooterSection from '@/components/footer-section'
+import CalendarSection from '@/components/calendar-section'
 
-export default function WeddingPage() {
+export default function Home() {
   return (
-    <main className="min-h-screen bg-[#faf9f7]">
+    <div>
       <HeroSection />
       <AboutSection />
-      <CountdownSection />
-      <CalendarSection />
       <TimelineSection />
       <LocationSection />
-      <RsvpSection />
-      <WishesSection />
-      <ContactSection />
+      <CountdownSection />
+      <CalendarSection />
+      <RSVPSection />
       <FooterSection />
-    </main>
+    </div>
   )
 }
